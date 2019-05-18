@@ -35,7 +35,7 @@ download_files () {
 				sleep 1
 			else
 				echo "正在下载${file_name}..."
-				curl -o "${WORKSPACE_FOLDER}/${file_name}" "${PACKAGE_ROOT_URL}/${file_name}" > /dev/null 2>&1 &
+				curl -m 30 -o "${WORKSPACE_FOLDER}/${file_name}" "${PACKAGE_ROOT_URL}/${file_name}" > /dev/null 2>&1 &
 				break
 			fi
 		done
@@ -78,7 +78,6 @@ LIST_FILE_NAME="split_list.txt"
 PACKAGE_ROOT_URL="${REMOTE_HTTP_HOST}/${PACKAGE_NAME}"
 PACKAGE_LIST_URL="${PACKAGE_ROOT_URL}/${LIST_FILE_NAME}"
 WORKSPACE_FOLDER=`mktemp -d`
-MAX_DOWNLOAD_THREAD_COUNT=50
 DOWNLOADING_COUNT_FILE="${WORKSPACE_FOLDER}/downloading_count"
 MIN_LARGE_FILE_LENGTH=20480000
 START_TIMESTAMP=`date +%s`
